@@ -1,0 +1,42 @@
+version: "3.5"
+services:
+  redis:
+    image: redis:latest
+    container_name: bestside_exchange_redis
+    ports:
+      - "6379:6379"
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - web-service
+  mongo:
+    image: mongo
+    container_name: bestside_exchange_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongodata:/data/db"
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - web-service
+  app:
+    container_name: bestside_exchange_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/go/src/app
+    ports:
+      - 8080:8080
+    environment: # Pass environment variables to the service
+      APP_ENV: local
+    depends_on:
+      # We now depends on node and mongodb and redis server
+      - "mongo"
+      - "redis"
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - web-service
+
+volumes:
+  mongodata:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  web-service:
