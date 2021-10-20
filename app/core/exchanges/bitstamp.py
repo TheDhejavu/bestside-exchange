@@ -3,12 +3,12 @@ import json
 import requests
 from app.entity.ticker import Ticker
 from app.core.config import (
-    GEMINI_BASE_URL
+    BITSTAMP_BASE_URL
 )
 
 
-class gemini:
-    place_trade_url = "https://exchange.gemini.com/"
+class bitstamp:
+    place_trade_url = "https://www.bitstamp.net/"
 
     def __init__(self):
         pass
@@ -20,7 +20,7 @@ class gemini:
         try:
             data = []
             for symbol in selected_symbols:
-                url = f'{GEMINI_BASE_URL}/ticker/{self.__format_symbol(symbol)}'
+                url = f'{BITSTAMP_BASE_URL}/ticker/{self.__format_symbol(symbol)}'
                 response = requests.get(url)
                 resp = json.loads(response.text)
                 resp["symbol"] = symbol
@@ -45,13 +45,13 @@ class gemini:
             ).__dict__)
 
         return {
-            "exchange": "GEMINI",
+            "exchange": "BITSTAMP",
             "data": resp,
             "url": self.place_trade_url
         }
 
 
 if __name__ == "__main__":
-    b = gemini()
-    symbol = ["BTC-USD", "ETH-USD"]
+    b = bitstamp()
+    symbol = ["BTC-USD"]
     print(b.get_ticker(symbol))

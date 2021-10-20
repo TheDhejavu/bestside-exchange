@@ -1,8 +1,16 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
+from fastapi import HTTPException, status
+import json
+from app.core.config import ALLOWED_HOSTS, DEBUG, PROJECT_NAME, VERSION
+from app.core.socket_manager import manager
+from fastapi import WebSocket, WebSocketDisconnect
+from loguru import logger
+from time import sleep
+from app.services.compare_exchange import CompareExchange
 
-from app.api.routes import router as api_router
-from app.core.config import ALLOWED_HOSTS, API_PREFIX, DEBUG, PROJECT_NAME, VERSION
+exchange = CompareExchange()
 
 
 def get_application() -> FastAPI:
@@ -16,9 +24,49 @@ def get_application() -> FastAPI:
         allow_headers=["*"],
     )
 
-    application.include_router(api_router, prefix=API_PREFIX)
-
     return application
 
 
 app = get_application()
+
+
+@app.get("/exchanges")
+async def get_exchanges():
+    try:
+        response = await exchange.get_tickers()
+        return JSONResponse(
+            content=response,
+            status_code=status.HTTP_200_OK
+        )
+
+    except Exception as e:
+        logger.exception(e)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Oops!! something went wrong"
+        )
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    try:
+        logger.debug(f"Websocket::")
+        await manager.connect(websocket)
+        try:
+            while True:
+                # response = await exchange.get_tickers()
+                # print(response)
+                # json_string = json.dumps(response)
+                await manager.broadcast("json_string")
+                sleep(20)
+        except WebSocketDisconnect:
+            manager.disconnect(websocket)
+    except Exception as e:
+        logger.warning(f"Websocket Error: {e}")
+
+
+@app.get('/')
+async def root():
+    return {
+        'message': 'Welcome to BestSide Exchange Service.'
+    }

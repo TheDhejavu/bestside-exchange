@@ -4,10 +4,9 @@ import logging
 import sys
 from typing import List
 
-from databases import DatabaseURL
 from loguru import logger
 from starlette.config import Config
-from starlette.datastructures import CommaSeparatedStrings, Secret
+from starlette.datastructures import CommaSeparatedStrings
 
 from app.core.logging import InterceptHandler
 
@@ -18,13 +17,17 @@ config = Config(".env")
 
 DEBUG: bool = config("DEBUG", cast=bool, default=False)
 
-DATABASE_URL: DatabaseURL = config("DB_CONNECTION", cast=DatabaseURL)
+
 MAX_CONNECTIONS_COUNT: int = config(
     "MAX_CONNECTIONS_COUNT", cast=int, default=10)
 MIN_CONNECTIONS_COUNT: int = config(
     "MIN_CONNECTIONS_COUNT", cast=int, default=10)
 
-SECRET_KEY: Secret = config("SECRET_KEY", cast=Secret)
+
+BITSTAMP_BASE_URL: str = config("BITSTAMP_BASE_URL")
+GEMINI_BASE_URL: str = config("GEMINI_BASE_URL")
+BLOCKCHAIN_DOT_COM_BASE_URL: str = config("BLOCKCHAIN_DOT_COM_BASE_URL")
+BITFINEX_BASE_URL: str = config("BITFINEX_BASE_URL")
 
 PROJECT_NAME: str = config(
     "PROJECT_NAME", default="BestSide Exchange")

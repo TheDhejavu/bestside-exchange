@@ -1,33 +1,48 @@
-
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
 import requests
-from app.core.symbols import symbols
-BASE_URL = "https://api.blockchain.com/v3/exchange"
+from app.entity.ticker import Ticker
+from app.core.config import (
+    BLOCKCHAIN_DOT_COM_BASE_URL
+)
 
 
-class BlockchainAPI:
-    def __init__(self, api_secret):
-        self.api_secret = api_secret
+class blockchain_api:
+    place_trade_url = "https://exchange.blockchain.com/"
 
-    def get_ticker(self):
-        headers = {}
-
-        response = requests.get(
-            f"{BASE_URL}/tickers/", headers=headers)
-
-        return response.json()
-
-    def filter_tickers(self, tickers: dict):
-        data = []
-        for price in tickers:
-            if price["symbol"] in symbols:
-                data.append(price)
-
-        return data
-
-    def format_resp(self):
+    def __init__(self):
         pass
+
+    async def get_ticker(self, selected_symbols=None):
+        url = f"{BLOCKCHAIN_DOT_COM_BASE_URL}/tickers/"
+
+        try:
+            response = requests.get(url)
+            data = json.loads(response.text)
+
+            return self.__format_resp(data, selected_symbols)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            print(e)
+
+    def __format_resp(self, data, includes=None):
+        resp = []
+        for ticker in data:
+            if includes and ticker["symbol"] not in includes:
+                continue
+
+            resp.append(Ticker(
+                ask=ticker["price_24h"],
+                bid=0.0,
+                symbol=ticker["symbol"]
+            ).__dict__)
+
+        return {
+            "exchange": "BLOCKCHAIN.COM",
+            "data": resp,
+            "url": self.place_trade_url
+        }
 
 
 if __name__ == "__main__":
-    b = BlockchainAPI('81f50bbe-8850-47f3-b6f0-72ca222f32bd')
-    print(b.filter_tickers(b.get_ticker()))
+    b = blockchain_api()
+    print(b.get_ticker(["BTC-USD"]))
