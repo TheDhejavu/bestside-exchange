@@ -3,7 +3,6 @@ VERSION ?= $(shell git describe --tags --always --dirty --match=v* 2> /dev/null 
 .PHONY: default
 default: help
 
-# Read More https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 help: ## help information about make commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -26,23 +25,6 @@ start: ## start docker compose
 stop: ## stop docker compose
 	@echo "Stopping docker compose"
 	docker-compose down --remove-orphans --volumes
-
-.PHONY: db-start
-db-start: ## start the database server
-	docker run --name bestside_exchange_mongodb  -d -p 27017:27017 mongo:latest 
-
-.PHONY: db-stop
-db-stop: ## stop the database server
-	docker stop bestside_exchange_mongodb
-	docker rm bestside_exchange_mongodb
-
-.PHONY: redis-start
-redis-start: ## start the redis server
-	@docker run --rm --name bestside_exchange_redis -d -p 6379:6379 redis:latest
-
-.PHONY: redis-stop
-redis-stop: ## stop the redis server
-	docker stop bestside_exchange_redis
 
 .PHONY: version
 version: ## display the version of the API server
