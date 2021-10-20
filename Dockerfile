@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM tiangolo/uvicorn-gunicorn:python3.9-alpine3.14
 WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt

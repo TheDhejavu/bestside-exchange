@@ -20,10 +20,4 @@ docs_build
 venv
 docs.zip
 archive.zip
-Logs
-# vim temporary files
-*~
-.*.sw?
-cred.*
-/app/initiator/Sessions/*
-k8s
+/frontend/node_modules

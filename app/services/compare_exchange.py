@@ -1,10 +1,22 @@
 import importlib
 
 exchanges = [
-    "bitfinex",
-    "blockchain_api",
-    "bitstamp",
-    "gemini"
+    {
+        "name": "bitfinex",
+        "active": True,
+    },
+    {
+        "name": "blockchain_api",
+        "active": True
+    },
+    {
+        "name": "bitstamp",
+        "active": True,
+    },
+    {
+        "name": "gemini",
+        "active": True
+    }
 ]
 
 symbols = [
@@ -16,10 +28,12 @@ symbols = [
 class CompareExchange:
     def __init__(self):
         self.modules = []
-        for v in exchanges:
-            module = importlib.import_module(f'app.core.exchanges.{v}')
-            module = getattr(module, v)
-            self.modules.append(module)
+        for exchange in exchanges:
+            if exchange["active"]:
+                module = importlib.import_module(
+                    f'app.core.exchanges.{exchange["name"]}')
+                module = getattr(module, exchange["name"])
+                self.modules.append(module)
 
     async def get_tickers(self):
         data = []

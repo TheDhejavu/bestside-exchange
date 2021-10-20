@@ -9,7 +9,8 @@ from fastapi import WebSocket, WebSocketDisconnect
 from loguru import logger
 from time import sleep
 from app.services.compare_exchange import CompareExchange
-
+import threading
+import asyncio
 exchange = CompareExchange()
 
 
@@ -28,6 +29,27 @@ def get_application() -> FastAPI:
 
 
 app = get_application()
+
+
+async def get_and_publish_tickers():
+    while True:
+        response = await exchange.get_tickers()
+        logger.info(response)
+        await manager.broadcast(json.dumps(response))
+        sleep(5)
+
+
+def start_tickers_thread():
+    def async_sub_thread():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        loop.run_until_complete(get_and_publish_tickers())
+        loop.close()
+
+    thread = threading.Thread(target=async_sub_thread)
+
+    thread.start()
 
 
 @app.get("/exchanges")
@@ -53,12 +75,10 @@ async def websocket_endpoint(websocket: WebSocket):
         logger.debug(f"Websocket::")
         await manager.connect(websocket)
         try:
+            start_tickers_thread()
             while True:
-                # response = await exchange.get_tickers()
-                # print(response)
-                # json_string = json.dumps(response)
-                await manager.broadcast("json_string")
-                sleep(20)
+                await websocket.receive_text()
+                sleep(1)
         except WebSocketDisconnect:
             manager.disconnect(websocket)
     except Exception as e:
