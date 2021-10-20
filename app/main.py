@@ -36,7 +36,7 @@ async def get_and_publish_tickers():
         response = await exchange.get_tickers()
         logger.info(response)
         await manager.broadcast(json.dumps(response))
-        sleep(5)
+        sleep(3)
 
 
 def start_tickers_thread():
