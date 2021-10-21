@@ -16,7 +16,7 @@ exchanges = [
     {
         "name": "gemini",
         "active": True
-    }
+    },
 ]
 
 symbols = [
