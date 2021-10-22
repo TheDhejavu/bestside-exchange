@@ -202,13 +202,13 @@ const  App = () => {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Ask Price
+                          Buy Price
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Bid Price
+                          Sell Price
                         </th>
                         <th scope="col" className="relative px-6 py-3">
                           <span className="sr-only">Action</span>
@@ -221,13 +221,13 @@ const  App = () => {
                         <tr key={ticker.exchange} className="">
                           
                           <td className="p-7 whitespace-nowrap">
-                            <div className="text-lg text-gray-900">{idx+1}</div>
+                            <div className="text-sm text-gray-900">{idx+1}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                           
                               <div className="ml-4">
-                                <div className="text-lg font-medium text-gray-900">{ticker.exchange}</div>
+                                <div className="text-sm font-medium text-gray-900">{ticker.exchange}</div>
                                   
                                 {bestSides && bestSides[ticker.symbol].best_buy_side.exchange == ticker.exchange ? (
                                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" >
@@ -245,13 +245,13 @@ const  App = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-lg text-gray-900 ">{ticker.symbol}</div>
+                            <div className="text-sm text-gray-900 ">{ticker.symbol}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-lg text-gray-900 ">${ticker.ask}</div>
+                            <div className="text-sm text-gray-900 ">${formatAmount(ticker.ask)}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div className="text-lg text-gray-900 ">${ticker.bid}</div>
+                            <div className="text-sm text-gray-900 ">${formatAmount(ticker.bid)}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <a href={ticker.url} target="__blank" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">

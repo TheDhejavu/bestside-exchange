@@ -11,6 +11,7 @@ from time import sleep
 from app.services.compare_exchange import CompareExchange
 import threading
 import asyncio
+
 exchange = CompareExchange()
 
 
@@ -32,11 +33,15 @@ app = get_application()
 
 
 async def get_and_publish_tickers():
-    while True:
-        response = await exchange.get_tickers()
-        logger.info(response)
-        await manager.broadcast(json.dumps(response))
-        sleep(40)
+    try:
+       
+        while True:
+            response = await exchange.get_tickers()
+            logger.info(response)
+            await manager.broadcast(json.dumps(response))
+            sleep(15)
+    except Exception as e:
+        logger.exception(e)
 
 
 def start_tickers_thread():
@@ -56,17 +61,12 @@ def start_tickers_thread():
 async def get_exchanges():
     try:
         response = await exchange.get_tickers()
-        return JSONResponse(
-            content=response,
-            status_code=status.HTTP_200_OK
-        )
+        return JSONResponse(content=response, status_code=status.HTTP_200_OK)
 
     except Exception as e:
         logger.exception(e)
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Oops!! something went wrong"
-        )
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail="Oops!! something went wrong")
 
 
 @app.websocket("/ws")
@@ -87,6 +87,4 @@ async def websocket_endpoint(websocket: WebSocket):
 
 @app.get('/')
 async def root():
-    return {
-        'message': 'Welcome to BestSide Exchange Service.'
-    }
+    return {'message': 'Welcome to BestSide Exchange Service.'}

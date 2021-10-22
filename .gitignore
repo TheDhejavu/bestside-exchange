@@ -7,6 +7,7 @@ __pycache__
 htmlcov
 dist
 site
+.ssh
 .coverage
 coverage.xml
 .netlify

@@ -1,5 +1,6 @@
 import importlib
 import asyncio
+import concurrent
 
 exchanges = [
     {
@@ -37,13 +38,14 @@ class CompareExchange:
                 self.modules.append(module)
 
     async def get_tickers(self):
-        data = []
+        tasks = []
         for module in self.modules:
             module = module()
-            value = await module.get_ticker(symbols)
-            data.append(value)
+            tasks.append(module.get_ticker(symbols))
 
-        return self.__set_best_side(data)
+        results = await asyncio.gather(*tasks)
+
+        return self.__set_best_side(results)
 
     def __set_best_side(self, data):
         best_sides = self.__construct_best_side(symbols)
@@ -55,35 +57,35 @@ class CompareExchange:
                 symbol = ticker["symbol"]
                 if symbol in best_sides:
 
-                    if ticker["bid"] != 0.0:
+                    if ticker["ask"] != 0.0:
                         if best_sides[symbol]["best_buy_side"][
                                 "price"] == None:
                             best_sides[symbol]["best_buy_side"][
                                 "exchange"] = exchange
                             best_sides[symbol]["best_buy_side"][
-                                "price"] = ticker["bid"]
+                                "price"] = ticker["ask"]
                         else:
-                            if ticker["bid"] < best_sides[symbol][
+                            if ticker["ask"] < best_sides[symbol][
                                     "best_buy_side"]["price"]:
                                 best_sides[symbol]["best_buy_side"][
                                     "exchange"] = exchange
                                 best_sides[symbol]["best_buy_side"][
-                                    "price"] = ticker["bid"]
+                                    "price"] = ticker["ask"]
 
-                    if ticker["ask"] != 0.0:
+                    if ticker["bid"] != 0.0:
                         if best_sides[symbol]["best_sell_side"][
                                 "price"] == None:
                             best_sides[symbol]["best_sell_side"][
                                 "exchange"] = exchange
                             best_sides[symbol]["best_sell_side"][
-                                "price"] = ticker["ask"]
+                                "price"] = ticker["bid"]
                         else:
-                            if ticker["ask"] < best_sides[symbol][
+                            if ticker["bid"] < best_sides[symbol][
                                     "best_sell_side"]["price"]:
                                 best_sides[symbol]["best_sell_side"][
                                     "exchange"] = exchange
                                 best_sides[symbol]["best_sell_side"][
-                                    "price"] = ticker["ask"]
+                                    "price"] = ticker["bid"]
 
         return {"exchanges": data, "best_sides": best_sides}
 
