@@ -48,7 +48,6 @@ jobs:
     needs: build
     
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout files    
         uses: actions/checkout@v2
