@@ -68,7 +68,7 @@ jobs:
           dockerfile: Dockerfile
           tag_with_ref: true
           tag_with_sha: true
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-backend:latest
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-frontend:latest
 
       # - name: Build and push
       #   id: frontend-build
