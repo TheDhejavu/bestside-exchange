@@ -2,6 +2,10 @@
 
 Best Side Exchange compares Bitcoin and Ethereum prices from multiple exchanges and gives you the best exchange to buy or sell.
 
+## Demo 😊
+
+#### http://147.182.182.117:3000/
+
 ## Screenshot
 
 ![Service FLow diagram](/docs/app-screenshot.png)
@@ -60,7 +64,9 @@ Build start
 ```
 
 #### Development
+
 ##### http://127.0.0.1:3000
 
 #### Demo
+
 ##### http://147.182.182.117:3000/
