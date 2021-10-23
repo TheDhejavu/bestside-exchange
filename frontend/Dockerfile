@@ -1,16 +1,26 @@
-# pull the base image
-FROM node:alpine3.14
+# Name the node stage "builder"
+FROM node:alpine3.14 AS builder
 
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /app
 
-COPY package.json .
+# Copy all files from current directory to working dir in image
+COPY . .
 
-COPY package-lock.json .
+# install node modules and build assets
+RUN npm install --silent && npm run build
 
-RUN npm install --silent
+# nginx state for serving content
+FROM nginx:alpine
 
-COPY . ./
+# Set working directory to nginx asset directory
+WORKDIR /usr/share/nginx/html
 
-EXPOSE 3000
+# Remove default nginx static assets
+RUN rm -rf ./*
 
-CMD [ "npm", "start" ]
+# Copy static assets from builder stage
+COPY --from=builder /app/build .
+
+# Containers run nginx with global directives and daemon off
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

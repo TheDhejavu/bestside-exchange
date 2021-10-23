@@ -14,7 +14,7 @@ services:
   frontend:
     image: thedejavu/bestside-frontend:main
     ports:
-      - 3000:3000
+      - 3000:80
     environment:
       APP_ENV: production
       REACT_APP_WEBSOCKET_URL: "ws://147.182.182.117:8000/ws"
