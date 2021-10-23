@@ -10,11 +10,11 @@ services:
       GEMINI_BASE_URL: "https://api.gemini.com/v2"
       BLOCKCHAIN_DOT_COM_BASE_URL: "https://api.blockchain.com/v3/exchange"
       BITFINEX_BASE_URL: "https://api-pub.bitfinex.com/v2"
-      
+
   frontend:
     image: thedejavu/bestside-frontend:main
     ports:
       - 3000:3000
     environment:
       APP_ENV: production
-      REACT_APP_WEBSOCKET_URL: "ws://localhost:8000/ws"
+      REACT_APP_WEBSOCKET_URL: "ws://147.182.182.117:8000/ws"
