@@ -2,6 +2,11 @@
 
 Best Side Exchange compares Bitcoin and Ethereum prices from multiple exchanges and gives you the best exchange to buy or sell.
 
+
+
+## Screenshot
+![Service FLow diagram](/docs/app-screenshot.png)
+
 ## Goals
 
 This includes:
