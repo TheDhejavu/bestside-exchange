@@ -2,9 +2,8 @@
 
 Best Side Exchange compares Bitcoin and Ethereum prices from multiple exchanges and gives you the best exchange to buy or sell.
 
-
-
 ## Screenshot
+
 ![Service FLow diagram](/docs/app-screenshot.png)
 
 ## Goals
@@ -23,7 +22,9 @@ This includes:
 
 ## Setup
 
-### Populate .env file with
+## Server
+
+### Populate Root .env with
 
 ```
 BITSTAMP_BASE_URL="https://www.bitstamp.net/api/v2"
@@ -32,15 +33,19 @@ BLOCKCHAIN_DOT_COM_BASE_URL="https://api.blockchain.com/v3/exchange"
 BITFINEX_BASE_URL="https://api-pub.bitfinex.com/v2"
 ```
 
-### Server
-
 #### Start server
 
 ```
 make server
 ```
 
-### Web
+## Web Frontend
+
+### Populate frontend/ .env with
+
+```
+REACT_APP_WEBSOCKET_URL="ws://127.0.0.1:8000/ws"
+```
 
 #### Start web
 
@@ -48,8 +53,12 @@ make server
 make web
 ```
 
-### Alternative Using Docker
+## Alternative Using Docker (Server & Web)
 
 ```
 Build start
 ```
+
+### Development: http://127.0.0.1:3000
+
+### Demo: http://147.182.182.117:3000/

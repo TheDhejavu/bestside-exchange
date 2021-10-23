@@ -31,7 +31,6 @@ def get_application() -> FastAPI:
 
 app = get_application()
 
-
 async def get_and_publish_tickers():
     try:
        

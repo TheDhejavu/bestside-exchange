@@ -7,6 +7,11 @@ default: help
 help: ## help information about make commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+.PHONY: web
+web: ## run the web frontend
+	@cd frontend && npm run start
+
+.PHONY: install
 install: ## Install npm dependencies for the web service
 	@echo "Installing Python dependencies"
 	@python3 -m pip install -r requirements.txt
