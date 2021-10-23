@@ -27,12 +27,12 @@ stop: ## stop docker compose
 	docker-compose down --remove-orphans --volumes
 
 .PHONY: prod-start
-.prod-start:
+prod-start: ## start prod docker compose
 	@echo "Starting up docker compose"
 	docker-compose -f docker-compose-prod.yml up -d --remove-orphans
 
 .PHONY: prod-stop
-.prod-stop:
+prod-stop: ## stop prod docker compose
 	@echo "Stopping docker compose"
 	docker-compose -f docker-compose-prod.yml down --remove-orphans
 
@@ -43,8 +43,8 @@ version: ## display the version of the API server
 .PHONY: test
 test: ## run unit tests
 	@echo "Running Test"
-	@ENV_NAME=test python3 -m pytest -W ignore::DeprecationWarning 
+	@APP_ENV=test python3 -m pytest -W ignore::DeprecationWarning 
 
 .PHONY: test-cover
 test-cover:  ## run unit tests and show test coverage information
-	@ENV_NAME=test coverage run -m pytest
+	@APP_ENV=test coverage run -m pytest
