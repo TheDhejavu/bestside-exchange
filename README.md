@@ -75,16 +75,18 @@ Build start
 
 ### Are there any sub-optimal choices( or short cuts taken due to limited time ) in your implementation?
 
-Nothing
+The implementation is not perfect, for instance some API doesn't display sell Prices and also if the exchanges URL grows to hundreds, fetching data from this exchanges in seconds might become nearly impossible thereby increasing the time taken to display market prices. 
 
 ### Is any part of it over-designed? ( It is fine to over-design to showcase your skills as long as you are clear about it)
 
-Nothing
+I think every design i did was well thought out and neccessary for instance using docker for containerization fostered an easy deployment to digitalocean Virtual machine. The realtime analysis is neccessary because market prices accross these exchanges are constantly changing and it is important to fetch and analyze this data in realtime and display the best side prices for different exchanges. 
 
 ### If you have to scale your solution to 100 users/second traffic what changes would you make, if any?
 
-Nothing
+- Deploy this application to a kubernetes cluster.
+- Improve the realtime analysis algorithm that compares exchanges prices from O(N^2) time complexity. 
+- Fetch data differently using threads and handle errors gracefully such  that if an exhchange API call fails or hangs, this won't affect other exchanges from fetchinng it's data.
 
 ### What are some other enhancements you would have made, if you had more time to do this implementation
 
-Durrrrh
+- Scalabilty issues as discussed in the above question.  
