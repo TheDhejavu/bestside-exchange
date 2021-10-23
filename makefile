@@ -32,7 +32,7 @@ stop: ## stop docker compose
 	docker-compose -f docker-compose-prod.yml up -d --remove-orphans
 
 .PHONY: prod-stop
-.prod-start:
+.prod-stop:
 	@echo "Stopping docker compose"
 	docker-compose -f docker-compose-prod.yml down --remove-orphans
 
