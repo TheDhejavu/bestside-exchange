@@ -55,7 +55,7 @@ jobs:
           dockerfile: Dockerfile
           tag_with_ref: true
           tag_with_sha: true
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-backend:latest
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-backend
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
@@ -66,7 +66,7 @@ jobs:
           dockerfile: ./frontend/Dockerfile
           tag_with_ref: true
           tag_with_sha: true
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-frontend:latest
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-frontend
 
       # - name: Build and push
       #   id: frontend-build
