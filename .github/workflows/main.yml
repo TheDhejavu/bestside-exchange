@@ -63,7 +63,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           path: ./frontend
-          dockerfile: Dockerfile
+          dockerfile: ./frontend/Dockerfile
           tag_with_ref: true
           tag_with_sha: true
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-frontend
