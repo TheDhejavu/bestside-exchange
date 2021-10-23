@@ -58,7 +58,7 @@ jobs:
           tag_with_sha: true
           repository: ${{ secrets.DOCKERHUB_USERNAME }}/bestside-backend:latest
 
-       - name: Build and push
+      - name: Build and push
         id: fronted-build
         uses: docker/build-push-action@v1
         with:
