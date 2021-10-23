@@ -26,6 +26,16 @@ stop: ## stop docker compose
 	@echo "Stopping docker compose"
 	docker-compose down --remove-orphans --volumes
 
+.PHONY: prod-start
+.prod-start:
+	@echo "Starting up docker compose"
+	docker-compose -f docker-compose-prod.yml up -d --remove-orphans
+
+.PHONY: prod-stop
+.prod-start:
+	@echo "Stopping docker compose"
+	docker-compose -f docker-compose-prod.yml down --remove-orphans
+
 .PHONY: version
 version: ## display the version of the API server
 	@echo $(VERSION)

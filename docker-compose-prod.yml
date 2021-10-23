@@ -10,7 +10,7 @@ services:
       GEMINI_BASE_URL: "https://api.gemini.com/v2"
       BLOCKCHAIN_DOT_COM_BASE_URL: "https://api.blockchain.com/v3/exchange"
       BITFINEX_BASE_URL: "https://api-pub.bitfinex.com/v2"
-
+      
   frontend:
     image: thedejavu/bestside-frontend:main
     ports:

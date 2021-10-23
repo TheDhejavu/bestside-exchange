@@ -14,10 +14,10 @@ test.db
 log.txt
 Pipfile.lock
 env3.*
-.env
 .env.test
 docs_build
 venv
 docs.zip
+.env
 archive.zip
 /frontend/node_modules
