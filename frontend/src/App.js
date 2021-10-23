@@ -40,7 +40,7 @@ const  App = () => {
     .map((message) => {
       if(message  && message.data){
         let messageTickers = []
-        console.log(message.data)
+        // console.log(message.data)
         const messageData = JSON.parse(message.data)
        
         for(const k in messageData.exchanges){
