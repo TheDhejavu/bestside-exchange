@@ -41,7 +41,7 @@ make server
 
 ## Web Frontend
 
-### Populate frontend/ .env with
+#### Populate frontend/ .env with
 
 ```
 REACT_APP_WEBSOCKET_URL="ws://127.0.0.1:8000/ws"
@@ -59,6 +59,8 @@ make web
 Build start
 ```
 
-### Development: http://127.0.0.1:3000
+#### Development
+```http://127.0.0.1:3000```
 
-### Demo: http://147.182.182.117:3000/
+#### Demo
+```http://147.182.182.117:3000/```
