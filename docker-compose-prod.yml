@@ -21,8 +21,6 @@ services:
 
   nginx: 
     image: nginx:latest
-    restart: unless-stopped
-    tty: true
     ports:
       - "80:80"
       - "443:443"

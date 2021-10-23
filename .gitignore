@@ -21,3 +21,4 @@ venv
 docs.zip
 archive.zip
 /frontend/node_modules
+.DS_Store
