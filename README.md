@@ -2,7 +2,7 @@
 
 Best Side Exchange compares Bitcoin and Ethereum prices from multiple exchanges and gives you the best exchange to buy or sell.
 
-## Demo 😊
+## Demo  👀
 
 #### http://147.182.182.117:3000/
 
