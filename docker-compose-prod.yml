@@ -1,0 +1,15 @@
+version: "3.5"
+services:
+  backend:
+    image: thedejavu/bestside-backend
+    ports:
+      - 8000:8000
+    environment:
+      APP_ENV: production
+
+  frontend:
+    image: thedejavu/bestside-frontend
+    ports:
+      - 3000:3000
+    environment:
+      APP_ENV: production
