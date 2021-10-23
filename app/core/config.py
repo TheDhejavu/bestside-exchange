@@ -3,17 +3,26 @@
 import logging
 import sys
 from typing import List
+import os
 
 from loguru import logger
-from starlette.config import Config
+from starlette.config import Config as fetchConfig
 from starlette.datastructures import CommaSeparatedStrings
 
 from app.core.logging import InterceptHandler
 
 API_PREFIX = "/api"
+print(f"APPLICATION_ENV", os.environ.get("APP_ENV"))
 VERSION = "1.0.0"
 
-config = Config(".env")
+
+def config(key, cast=None, default=None):
+    if os.environ.get("APP_ENV") == "production" or os.environ.get("APP_ENV") == "development":
+        return os.environ.get(key=key, default=default)
+
+    _config = fetchConfig(".env")
+
+    return _config(key, cast=cast, default=default)
 
 DEBUG: bool = config("DEBUG", cast=bool, default=False)
 
