@@ -29,7 +29,7 @@ stop: ## stop docker compose
 .PHONY: prod-start
 prod-start: ## start prod docker compose
 	@echo "Starting up docker compose"
-	docker-compose -f docker-compose-prod.yml up -d --remove-orphans
+	make prod-stop && docker-compose build --pull && docker-compose -f docker-compose-prod.yml up -d --remove-orphans
 
 .PHONY: prod-stop
 prod-stop: ## stop prod docker compose
