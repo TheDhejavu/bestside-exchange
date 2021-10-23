@@ -39,7 +39,7 @@ async def get_and_publish_tickers():
             response = await exchange.get_tickers()
             logger.info(response)
             await manager.broadcast(json.dumps(response))
-            sleep(15)
+            sleep(10)
     except Exception as e:
         logger.exception(e)
 
