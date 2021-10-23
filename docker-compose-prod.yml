@@ -10,9 +10,8 @@ services:
       GEMINI_BASE_URL: "https://api.gemini.com/v2"
       BLOCKCHAIN_DOT_COM_BASE_URL: "https://api.blockchain.com/v3/exchange"
       BITFINEX_BASE_URL: "https://api-pub.bitfinex.com/v2"
-    environment:
-      - VIRTUAL_HOST=147.182.182.117
-      - LETSENCRYPT_HOST=147.182.182.117
+      VIRTUAL_HOST: 147.182.182.117
+      LETSENCRYPT_HOST: 147.182.182.117
 
   frontend:
     image: thedejavu/bestside-frontend:main
