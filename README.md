@@ -70,3 +70,21 @@ Build start
 #### Demo
 
 ##### http://147.182.182.117:3000/
+
+## Questionnaire:
+
+### Are there any sub-optimal choices( or short cuts taken due to limited time ) in your implementation?
+
+Nothing
+
+### Is any part of it over-designed? ( It is fine to over-design to showcase your skills as long as you are clear about it)
+
+Nothing
+
+### If you have to scale your solution to 100 users/second traffic what changes would you make, if any?
+
+Nothing
+
+### What are some other enhancements you would have made, if you had more time to do this implementation
+
+Durrrrh
