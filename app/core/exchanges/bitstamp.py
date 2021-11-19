@@ -2,9 +2,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import requests
 from app.entity.ticker import Ticker
-from app.core.config import (
-    BITSTAMP_BASE_URL
-)
+from app.core.config import (BITSTAMP_BASE_URL)
 
 
 class bitstamp:
@@ -29,6 +27,7 @@ class bitstamp:
             return self.__format_resp(data)
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print(e)
+            pass
 
     def __format_symbol(self, symbol):
         symbol = symbol.replace('-', '')
@@ -37,12 +36,10 @@ class bitstamp:
     def __format_resp(self, data):
         resp = []
         for ticker in data:
-            # print(ticker)
-            resp.append(Ticker(
-                ask=ticker["ask"],
-                bid=ticker["bid"],
-                symbol=ticker["symbol"]
-            ).__dict__)
+            resp.append(
+                Ticker(ask=ticker["ask"],
+                       bid=ticker["bid"],
+                       symbol=ticker["symbol"]).__dict__)
 
         return {
             "exchange": "BITSTAMP",

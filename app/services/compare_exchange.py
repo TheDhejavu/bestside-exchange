@@ -1,6 +1,5 @@
 import importlib
 import asyncio
-import concurrent
 
 exchanges = [
     {
@@ -24,8 +23,8 @@ exchanges = [
 symbols = [
     "BTC-USD",
     "ETH-USD",
+    "LTC-USD"
 ]
-
 
 class CompareExchange:
     def __init__(self):
@@ -50,7 +49,7 @@ class CompareExchange:
     def __set_best_side(self, data):
         best_sides = self.__construct_best_side(symbols)
 
-        # O(N^2)
+        # compare all exchanges
         for tickers in data:
             exchange = tickers["exchange"]
             for ticker in tickers["data"]:
