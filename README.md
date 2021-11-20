@@ -14,8 +14,8 @@ Best Side Exchange compares Bitcoin and Ethereum prices from multiple exchanges 
 
 This includes:
 
-- Prices of Bitcoin and Ethereum from two (any) different exchanges/sources.
-- Differentiate buy and sell price clearly
+- Prices of Bitcoin and Ethereum from different exchanges/sources.
+- Differentiate buy and sell prices 
 - Recommenddations on where to buy and where to sell.
 
 ## Requirements
